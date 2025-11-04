@@ -56,7 +56,7 @@ export const LoginForm = () => {
 
       <div className="text-center text-muted-foreground text-sm">
         <p>Free WiFi Access</p>
-        <p className="text-xs mt-1">Powered by Antie-A Wisma Kost</p>
+        <p className="text-xs mt-1">Powered by ANTIEQ Wisma Kost</p>
       </div>
     </form>
   );

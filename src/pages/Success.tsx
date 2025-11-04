@@ -38,7 +38,7 @@ const Success = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-foreground/90">
-            You're now online at Antie-A Wisma Kost
+            You're now online at ANTIEQ Wisma Kost
           </p>
         </div>
 
@@ -46,7 +46,7 @@ const Success = () => {
           <div className="grid grid-cols-2 gap-4 text-left">
             <div>
               <p className="text-sm text-muted-foreground">Network</p>
-              <p className="text-lg font-semibold text-foreground">Antie-A WiFi</p>
+              <p className="text-lg font-semibold text-foreground">ANTIEQ WiFi</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Speed</p>

@@ -17,7 +17,7 @@ const Login = () => {
         <div className="mb-8 flex flex-col items-center animate-fade-in">
           <img 
             src={logo} 
-            alt="Antie-A Wisma Kost" 
+            alt="ANTIEQ Wisma Kost" 
             className="w-full max-w-2xl h-auto mb-6 drop-shadow-2xl"
           />
           <div className="flex items-center justify-center gap-4 mb-2">
@@ -37,7 +37,7 @@ const Login = () => {
 
       {/* Footer */}
       <div className="absolute bottom-4 text-center text-muted-foreground text-xs">
-        <p>© 2025 Antie-A Wisma Kost. All rights reserved.</p>
+        <p>© 2025 ANTIEQ Wisma Kost. All rights reserved.</p>
       </div>
     </div>
   );

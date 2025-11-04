@@ -1,5 +1,5 @@
 ========================================
-MIKROTIK HOTSPOT TEMPLATE - ANTIE-A WISMA KOST
+MIKROTIK HOTSPOT TEMPLATE - ANTIEQ WISMA KOST
 ========================================
 
 CARA INSTALL KE MIKROTIK:
@@ -43,7 +43,7 @@ login.html      - Halaman login utama
 status.html     - Halaman proses koneksi (redirect otomatis)
 alogin.html     - Halaman sukses koneksi dengan info user
 styles.css      - File CSS untuk semua styling
-logo.png        - Logo Antie-A Wisma Kost
+logo.png        - Logo ANTIEQ Wisma Kost
 roket.png       - Ilustrasi rocket
 status_bg.png   - Background untuk halaman status (opsional)
 success_bg.png  - Background untuk halaman success (opsional)
@@ -100,7 +100,7 @@ SUPPORT:
 --------
 Untuk pertanyaan atau masalah, hubungi administrator sistem.
 
-Template ini dibuat khusus untuk Antie-A Wisma Kost.
+Template ini dibuat khusus untuk ANTIEQ Wisma Kost.
 Free WiFi for all residents and guests.
 
 ========================================
