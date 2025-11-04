@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+    <title>WiFi Login - Antie-A Wisma Kost</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <!-- Logo -->
+            <div class="logo-container">
+                <img src="logo.png" alt="Antie-A Wisma Kost Logo" class="logo">
+            </div>
+
+            <!-- Title -->
+            <div class="title-section">
+                <h1 class="title">Welcome to</h1>
+                <h2 class="subtitle">Antie-A Wisma Kost</h2>
+                <p class="description">Connect to free high-speed WiFi</p>
+            </div>
+
+            <!-- Login Form -->
+            <form name="login" action="$(link-login-only)" method="post" class="login-form">
+                <input type="hidden" name="dst" value="$(link-orig)" />
+                <input type="hidden" name="popup" value="true" />
+
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        name="username" 
+                        value="$(username)" 
+                        placeholder="Username"
+                        class="form-input"
+                        required
+                    />
+                </div>
+
+                <div class="form-group">
+                    <input 
+                        type="password" 
+                        name="password" 
+                        placeholder="Password"
+                        class="form-input"
+                        required
+                    />
+                </div>
+
+                $(if chap-id)
+                    <input type="hidden" name="chapid" value="$(chap-id)" />
+                    <input type="hidden" name="chapchallenge" value="$(chap-challenge)" />
+                $(endif)
+
+                $(if error)
+                    <div class="error-message">
+                        <p>$(error)</p>
+                    </div>
+                $(endif)
+
+                <button type="submit" class="submit-btn">
+                    <span>Connect to WiFi</span>
+                </button>
+
+                <div class="footer-text">
+                    <p>Free WiFi Access</p>
+                    <p class="small">Powered by Antie-A Wisma Kost</p>
+                </div>
+            </form>
+
+            <!-- Rocket Image -->
+            <div class="rocket-container">
+                <img src="roket.png" alt="Rocket" class="rocket">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-focus on username field
+        document.addEventListener('DOMContentLoaded', function() {
+            const usernameInput = document.querySelector('input[name="username"]');
+            if (usernameInput && !usernameInput.value) {
+                usernameInput.focus();
+            }
+        });
+    </script>
+</body>
+</html>

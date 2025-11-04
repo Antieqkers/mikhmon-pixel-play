@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connected - Antie-A Wisma Kost WiFi</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="success-page">
+    <div class="container">
+        <div class="content success-content">
+            <!-- Logo -->
+            <div class="logo-container">
+                <img src="logo.png" alt="Antie-A Wisma Kost Logo" class="logo">
+            </div>
+
+            <!-- Success Message -->
+            <div class="success-section">
+                <div class="success-icon">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <h1 class="success-title">Connected!</h1>
+                <p class="success-description">You are now connected to WiFi</p>
+            </div>
+
+            <!-- Connection Info -->
+            <div class="info-card">
+                <div class="info-item">
+                    <span class="info-label">Username</span>
+                    <span class="info-value">$(username)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">IP Address</span>
+                    <span class="info-value">$(ip)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">MAC Address</span>
+                    <span class="info-value">$(mac)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Session Time</span>
+                    <span class="info-value">$(uptime)</span>
+                </div>
+            </div>
+
+            <!-- Logout Button -->
+            <a href="$(link-logout)" class="logout-btn">Logout</a>
+
+            <!-- Footer -->
+            <div class="footer-text">
+                <p>Enjoy your free WiFi!</p>
+                <p class="small">Powered by Antie-A Wisma Kost</p>
+            </div>
+
+            <!-- Rocket Image -->
+            <div class="rocket-container rocket-success">
+                <img src="roket.png" alt="Rocket" class="rocket">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
