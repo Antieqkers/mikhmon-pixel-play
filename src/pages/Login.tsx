@@ -4,10 +4,10 @@ import roket from "@/assets/roket.png";
 
 const Login = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen w-full flex flex-col items-center justify-center p-4 relative overflow-hidden">
       {/* Fullscreen Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat -z-10"
         style={{ backgroundImage: `url(${loginBg})` }}
       >
         {/* Dark overlay for better readability */}
