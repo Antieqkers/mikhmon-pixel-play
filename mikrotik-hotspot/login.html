@@ -24,16 +24,12 @@
             </div>
 
             <!-- Login Form -->
-            <form name="login" action="$(link-login-only)" method="post" class="login-form">
-                <input type="hidden" name="dst" value="$(link-orig)" />
-                <input type="hidden" name="popup" value="true" />
-
+            <form name="login" method="post" class="login-form">
                 <div class="form-group">
                     <input 
                         type="text" 
                         name="username" 
-                        value="$(username)" 
-                        placeholder="Masukkan Username"
+                        placeholder="Username"
                         class="form-input"
                         autocomplete="off"
                     />
@@ -43,26 +39,11 @@
                     <input 
                         type="password" 
                         name="password" 
-                        placeholder="Masukkan Password"
+                        placeholder="Password"
                         class="form-input"
                         autocomplete="off"
                     />
                 </div>
-
-                <input type="hidden" name="dst" value="$(link-orig)" />
-                <input type="hidden" name="popup" value="true" />
-                $(if chap-id)
-                <input type="hidden" name="dst" value="$(link-orig)" />
-                <input type="hidden" name="popup" value="true" />
-                <input type="hidden" name="chapid" value="$(chap-id)" />
-                <input type="hidden" name="chapchallenge" value="$(chap-challenge)" />
-                $(endif)
-
-                $(if error)
-                    <div class="error-message">
-                        <p>$(error)</p>
-                    </div>
-                $(endif)
 
                 <button type="submit" class="submit-btn">
                     <span>Connect to WiFi</span>
