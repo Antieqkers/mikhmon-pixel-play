@@ -1,30 +1,28 @@
 import { LoginForm } from "@/components/LoginForm";
-import logo from "@/assets/logo.png";
+import loginBg from "@/assets/login-bg.png";
 import roket from "@/assets/roket.png";
 
 const Login = () => {
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4 relative overflow-hidden">
-      {/* Animated background effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-graffiti-orange/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-graffiti-cyan/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
+      {/* Fullscreen Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${loginBg})` }}
+      >
+        {/* Dark overlay for better readability */}
+        <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center w-full max-w-4xl">
-        {/* Logo Section */}
+        {/* Rocket Section */}
         <div className="mb-8 flex flex-col items-center animate-fade-in">
-          <img 
-            src={logo} 
-            alt="ANTIEQ Wisma Kost" 
-            className="w-full max-w-2xl h-auto mb-6 drop-shadow-2xl"
-          />
           <div className="flex items-center justify-center gap-4 mb-2">
             <img 
               src={roket} 
               alt="Rocket" 
-              className="w-20 h-20 animate-bounce"
+              className="w-20 h-20 md:w-24 md:h-24 animate-bounce drop-shadow-2xl"
             />
           </div>
         </div>
