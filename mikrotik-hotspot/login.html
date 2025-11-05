@@ -33,9 +33,9 @@
                         type="text" 
                         name="username" 
                         value="$(username)" 
-                        placeholder="Username"
+                        placeholder="Masukkan Username"
                         class="form-input"
-                        required
+                        autocomplete="off"
                     />
                 </div>
 
@@ -43,15 +43,19 @@
                     <input 
                         type="password" 
                         name="password" 
-                        placeholder="Password"
+                        placeholder="Masukkan Password"
                         class="form-input"
-                        required
+                        autocomplete="off"
                     />
                 </div>
 
+                <input type="hidden" name="dst" value="$(link-orig)" />
+                <input type="hidden" name="popup" value="true" />
                 $(if chap-id)
-                    <input type="hidden" name="chapid" value="$(chap-id)" />
-                    <input type="hidden" name="chapchallenge" value="$(chap-challenge)" />
+                <input type="hidden" name="dst" value="$(link-orig)" />
+                <input type="hidden" name="popup" value="true" />
+                <input type="hidden" name="chapid" value="$(chap-id)" />
+                <input type="hidden" name="chapchallenge" value="$(chap-challenge)" />
                 $(endif)
 
                 $(if error)
