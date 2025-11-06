@@ -24,14 +24,26 @@
             </div>
 
             <!-- Login Form -->
-            <form name="login" method="post" class="login-form">
+            <form name="login" action="$(link-login-only)" method="post" class="login-form">
+                <input type="hidden" name="dst" value="$(link-orig)" />
+                <input type="hidden" name="popup" value="true" />
+                
+                $(if chap-id)
+                <input type="hidden" name="chap-id" value="$(chap-id)" />
+                <input type="hidden" name="chap-challenge" value="$(chap-challenge)" />
+                $(endif)
+
+                $(if error)
+                <div class="error-message">$(error)</div>
+                $(endif)
+
                 <div class="form-group">
                     <input 
                         type="text" 
                         name="username" 
+                        value="$(username)"
                         placeholder="Username"
                         class="form-input"
-                        autocomplete="off"
                     />
                 </div>
 
@@ -41,7 +53,6 @@
                         name="password" 
                         placeholder="Password"
                         class="form-input"
-                        autocomplete="off"
                     />
                 </div>
 
@@ -49,11 +60,12 @@
                     <span>Connect to WiFi</span>
                 </button>
 
-                <div class="footer-text">
-                    <p>Free WiFi Access</p>
-                    <p class="small">Powered by ANTIEQ Wisma Kost</p>
-                </div>
             </form>
+
+            <div class="footer-text">
+                <p>Free WiFi Access</p>
+                <p class="small">Powered by ANTIEQ Wisma Kost</p>
+            </div>
 
             <!-- Rocket Image -->
             <div class="rocket-container">
@@ -63,13 +75,7 @@
     </div>
 
     <script>
-        // Auto-focus on username field
-        document.addEventListener('DOMContentLoaded', function() {
-            const usernameInput = document.querySelector('input[name="username"]');
-            if (usernameInput && !usernameInput.value) {
-                usernameInput.focus();
-            }
-        });
+        document.querySelector('input[name="username"]').focus();
     </script>
 </body>
 </html>
