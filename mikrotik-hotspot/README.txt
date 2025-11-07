@@ -15,37 +15,146 @@ FILE YANG DIPERLUKAN:
 7. roket.png      - Gambar roket
 8. login-bg.png   - Background image
 
-CARA INSTALL KE MIKROTIK:
-------------------------
-1. Masuk ke Winbox atau WebFig
-2. Buka menu Files
-3. Upload semua file di atas ke router
-4. Pindahkan ke folder hotspot:
-   - Drag & drop semua file ke folder "hotspot"
-   - Atau via FTP ke direktori /hotspot/
-5. Restart Hotspot Service:
-   - Terminal: /ip hotspot profile set [nama-profile] html-directory=hotspot
-   - Atau: System > Reboot
+CARA INSTALL KE MIKROTIK RB450Gx4:
+----------------------------------
+PENTING! Ikuti langkah ini dengan URUT:
 
-TROUBLESHOOTING:
---------------
-1. Halaman tidak muncul:
-   - Cek apakah file ada di folder /hotspot/
-   - Restart browser dan clear cache
-   - Cek hotspot profile: /ip hotspot profile print
+1. BACKUP dulu konfigurasi Mikrotik Anda:
+   Terminal: /system backup save name=backup-before-hotspot
 
-2. CSS tidak load:
-   - Pastikan styles.css ada di folder yang sama
+2. Upload semua file via Winbox:
+   - Buka Winbox > Files
+   - Drag & drop SEMUA file (html, css, png) ke root directory
+   - Tunggu sampai semua file selesai upload (cek kolom "Size")
+
+3. Pindahkan file ke folder hotspot:
+   a. Jika folder "hotspot" belum ada, buat dulu:
+      Terminal: /file print
+      Jika tidak ada folder hotspot, buat dengan:
+      - Upload file apapun
+      - Rename jadi "hotspot/test.txt" 
+      - Delete file test.txt
+   
+   b. Pindahkan semua file ke folder hotspot:
+      - Drag & drop semua file ke dalam folder "hotspot"
+      - Atau rename setiap file dengan prefix "hotspot/"
+      - Contoh: login.html -> hotspot/login.html
+
+4. Set HTML Directory di Hotspot Profile:
+   Terminal (WAJIB):
+   /ip hotspot profile print
+   (Lihat nama profile yang aktif, biasanya "hsprof1")
+   
+   /ip hotspot profile set hsprof1 html-directory=hotspot
+   
+   ATAU via Winbox:
+   IP > Hotspot > Server Profiles > [double click profile] > 
+   Tab "Login" > HTML Directory: ketik "hotspot"
+
+5. Restart Hotspot Service (PILIH SALAH SATU):
+   Cara A - Restart Service (REKOMENDASI):
+   /ip hotspot remove [nama-hotspot]
+   Lalu setup ulang hotspot dengan wizard
+   
+   Cara B - Reboot Router:
+   /system reboot
+   
+6. Test Koneksi:
+   - Connect ke WiFi hotspot
+   - Buka browser, akses sembarang website
+   - Halaman login harus muncul otomatis
+
+TROUBLESHOOTING (SOLUSI LENGKAP):
+=================================
+
+⚠️ MASALAH UMUM: TERSAMBUNG WIFI TAPI TIDAK ADA INTERNET
+--------------------------------------------------------
+GEJALA: Device tersambung ke WiFi tapi tidak bisa browsing, 
+        halaman login tidak muncul.
+
+PENYEBAB & SOLUSI:
+
+1. HTML Directory tidak di-set atau salah:
+   CEK: /ip hotspot profile print
+   LIHAT: kolom "html-directory" 
+   
+   SOLUSI:
+   /ip hotspot profile set [nama-profile] html-directory=hotspot
+   
+   Contoh:
+   /ip hotspot profile set hsprof1 html-directory=hotspot
+
+2. File tidak ada di folder hotspot:
+   CEK: /file print
+   PASTIKAN semua file ada di dalam folder "hotspot/"
+   
+   CONTOH yang BENAR:
+   hotspot/login.html
+   hotspot/alogin.html
+   hotspot/styles.css
+   hotspot/logo.png
+   
+   BUKAN:
+   login.html (di root)
+   
+   SOLUSI: Pindahkan semua file ke folder hotspot
+
+3. Hotspot service belum restart setelah konfigurasi:
+   SOLUSI:
+   /ip hotspot remove [nama-hotspot]
+   Lalu jalankan setup wizard lagi: /ip hotspot setup
+   
+   ATAU reboot router:
+   /system reboot
+
+4. Browser cache masih menyimpan halaman lama:
+   SOLUSI di device user:
+   - Clear browser cache
+   - Buka browser mode incognito/private
+   - Atau ketik manual: 192.168.88.1 (sesuaikan dengan IP gateway)
+
+5. DNS tidak terconfig dengan benar:
+   CEK: /ip dns print
+   SOLUSI:
+   /ip dns set servers=8.8.8.8,8.8.4.4
+   /ip dns set allow-remote-requests=yes
+
+6. Firewall NAT rules bermasalah:
+   CEK: /ip firewall nat print
+   PASTIKAN ada rule untuk hotspot:
+   chain=srcnat action=masquerade out-interface=[wan-interface]
+
+------------------------------------------
+TROUBLESHOOTING LAINNYA:
+------------------------------------------
+
+A. CSS atau Gambar tidak muncul:
+   - Pastikan semua file di folder hotspot SAMA
+   - Cek nama file (case sensitive): logo.png bukan Logo.png
    - Restart hotspot service
 
-3. Gambar tidak muncul:
-   - Pastikan semua file .png sudah diupload
-   - Cek nama file harus sama persis (case sensitive)
+B. Error "invalid username or password":
+   - Cek user list: /ip hotspot user print
+   - Tambah user test: /ip hotspot user add name=admin password=admin
+   - Test login dengan user tersebut
 
-4. Login gagal:
-   - Cek user hotspot di /ip hotspot user print
-   - Pastikan username dan password benar
-   - Cek IP binding jika ada
+C. Redirect tidak jalan setelah login:
+   - Cek hotspot profile HTTP PAP: enabled
+   - Cek HTTP CHAP: enabled
+   - Test dengan disable firewall sementara
+
+D. Halaman login muncul tapi tidak bisa submit:
+   - Cek apakah form action benar (gunakan file original)
+   - Pastikan method="post" di form login
+
+COMMAND DIAGNOSIS LENGKAP:
+-------------------------
+/ip hotspot print
+/ip hotspot profile print detail
+/ip hotspot user print
+/file print where name~"hotspot"
+/ip dns print
+/ip firewall nat print where chain=srcnat
 
 FITUR:
 ------
