@@ -1,10 +1,20 @@
+import { Link } from "react-router-dom";
+
 const Index = () => {
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center p-8 bg-gradient-to-br from-primary/20 to-background">
       <div className="max-w-2xl w-full bg-card rounded-lg shadow-lg p-8 space-y-6">
-        <h1 className="text-4xl font-bold text-center text-foreground">
-          MikroTik Hotspot Template
-        </h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-4xl font-bold text-foreground">
+            MikroTik Hotspot Template
+          </h1>
+          <Link 
+            to="/preview"
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-semibold"
+          >
+            👁️ Lihat Preview
+          </Link>
+        </div>
         
         <div className="space-y-4 text-muted-foreground">
           <p className="text-lg text-center">
