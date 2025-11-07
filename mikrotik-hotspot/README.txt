@@ -1,191 +1,207 @@
-========================================
-MIKROTIK HOTSPOT TEMPLATE
-ANTIEQ WISMA KOST
-Kompatibel dengan RB450Gx4 dan semua RouterOS v6+
-========================================
+═══════════════════════════════════════════════════════════════════════════════
+  ANTIEQ WISMA KOST - MIKROTIK HOTSPOT LOGIN PAGE
+  Panduan Upload & Instalasi untuk MikroTik RB450Gx4
+═══════════════════════════════════════════════════════════════════════════════
 
-FILE YANG DIPERLUKAN:
---------------------
-1. login.html     - Halaman login utama
-2. alogin.html    - Halaman setelah berhasil login
-3. status.html    - Halaman proses koneksi
-4. error.html     - Halaman error (opsional)
-5. styles.css     - File styling
-6. logo.png       - Logo ANTIEQ
-7. roket.png      - Gambar roket
-8. login-bg.png   - Background image
+📦 FILE YANG HARUS DIUPLOAD KE MIKROTIK:
+─────────────────────────────────────────
+✓ alogin.html      ← HALAMAN LOGIN UTAMA (WAJIB!)
+✓ status.html      ← Halaman status koneksi
+✓ error.html       ← Halaman error
+✓ styles.css       ← File CSS untuk styling
+✓ logo.png         ← Logo ANTIEQ Wisma Kost
+✓ roket.png        ← Gambar roket animasi
+✓ login-bg.png     ← Background login
+✓ status_bg.png    ← Background status
+✓ success_bg.png   ← Background success
 
-CARA INSTALL KE MIKROTIK RB450Gx4:
-----------------------------------
-PENTING! Ikuti langkah ini dengan URUT:
+PENTING: File login.html TIDAK PERLU diupload! Yang dipakai MikroTik adalah alogin.html
 
-1. BACKUP dulu konfigurasi Mikrotik Anda:
-   Terminal: /system backup save name=backup-before-hotspot
 
-2. Upload semua file via Winbox:
-   - Buka Winbox > Files
-   - Drag & drop SEMUA file (html, css, png) ke root directory
-   - Tunggu sampai semua file selesai upload (cek kolom "Size")
+═══════════════════════════════════════════════════════════════════════════════
+  LANGKAH-LANGKAH UPLOAD KE MIKROTIK RB450Gx4
+═══════════════════════════════════════════════════════════════════════════════
 
-3. Pindahkan file ke folder hotspot:
-   a. Jika folder "hotspot" belum ada, buat dulu:
-      Terminal: /file print
-      Jika tidak ada folder hotspot, buat dengan:
-      - Upload file apapun
-      - Rename jadi "hotspot/test.txt" 
-      - Delete file test.txt
-   
-   b. Pindahkan semua file ke folder hotspot:
-      - Drag & drop semua file ke dalam folder "hotspot"
-      - Atau rename setiap file dengan prefix "hotspot/"
-      - Contoh: login.html -> hotspot/login.html
+METODE 1: VIA WINBOX (PALING MUDAH)
+────────────────────────────────────
+1. Buka Winbox dan login ke MikroTik RB450Gx4
+2. Klik menu "Files" di sidebar kiri
+3. Buka folder "hotspot" (double-click)
+4. Drag & drop SEMUA file dari folder mikrotik-hotspot/ ke jendela Files
+5. Tunggu sampai upload selesai (cek progress bar)
 
-4. Set HTML Directory di Hotspot Profile:
-   Terminal (WAJIB):
-   /ip hotspot profile print
-   (Lihat nama profile yang aktif, biasanya "hsprof1")
-   
-   /ip hotspot profile set hsprof1 html-directory=hotspot
-   
-   ATAU via Winbox:
-   IP > Hotspot > Server Profiles > [double click profile] > 
-   Tab "Login" > HTML Directory: ketik "hotspot"
+METODE 2: VIA FTP
+─────────────────
+1. Pastikan FTP service aktif di MikroTik:
+   /ip service enable ftp
 
-5. Restart Hotspot Service (PILIH SALAH SATU):
-   Cara A - Restart Service (REKOMENDASI):
-   /ip hotspot remove [nama-hotspot]
-   Lalu setup ulang hotspot dengan wizard
-   
-   Cara B - Reboot Router:
-   /system reboot
-   
-6. Test Koneksi:
-   - Connect ke WiFi hotspot
-   - Buka browser, akses sembarang website
-   - Halaman login harus muncul otomatis
+2. Gunakan FileZilla atau FTP client lain:
+   Host: [IP MikroTik]
+   Username: admin
+   Password: [password admin]
+   Port: 21
 
-TROUBLESHOOTING (SOLUSI LENGKAP):
-=================================
+3. Masuk ke folder /hotspot/
+4. Upload semua file ke folder tersebut
 
-⚠️ MASALAH UMUM: TERSAMBUNG WIFI TAPI TIDAK ADA INTERNET
---------------------------------------------------------
-GEJALA: Device tersambung ke WiFi tapi tidak bisa browsing, 
-        halaman login tidak muncul.
+METODE 3: VIA WEB (WebFig)
+───────────────────────────
+1. Buka browser, akses http://[IP-MikroTik]
+2. Login dengan username & password admin
+3. Klik menu "Files"
+4. Klik folder "hotspot"
+5. Klik tombol "Upload", pilih file satu per satu
+6. Ulangi untuk semua file
 
-PENYEBAB & SOLUSI:
 
-1. HTML Directory tidak di-set atau salah:
-   CEK: /ip hotspot profile print
-   LIHAT: kolom "html-directory" 
-   
-   SOLUSI:
-   /ip hotspot profile set [nama-profile] html-directory=hotspot
-   
-   Contoh:
-   /ip hotspot profile set hsprof1 html-directory=hotspot
+═══════════════════════════════════════════════════════════════════════════════
+  KONFIGURASI HOTSPOT PROFILE
+═══════════════════════════════════════════════════════════════════════════════
 
-2. File tidak ada di folder hotspot:
-   CEK: /file print
-   PASTIKAN semua file ada di dalam folder "hotspot/"
-   
-   CONTOH yang BENAR:
-   hotspot/login.html
-   hotspot/alogin.html
-   hotspot/styles.css
-   hotspot/logo.png
-   
-   BUKAN:
-   login.html (di root)
-   
-   SOLUSI: Pindahkan semua file ke folder hotspot
+Setelah upload file, set HTML directory di Hotspot Profile:
 
-3. Hotspot service belum restart setelah konfigurasi:
-   SOLUSI:
-   /ip hotspot remove [nama-hotspot]
-   Lalu jalankan setup wizard lagi: /ip hotspot setup
-   
-   ATAU reboot router:
-   /system reboot
+VIA TERMINAL/COMMAND:
+────────────────────
+/ip hotspot profile set [nama-profile] html-directory=hotspot
 
-4. Browser cache masih menyimpan halaman lama:
-   SOLUSI di device user:
-   - Clear browser cache
-   - Buka browser mode incognito/private
-   - Atau ketik manual: 192.168.88.1 (sesuaikan dengan IP gateway)
+CONTOH jika profile bernama "hsprof1":
+/ip hotspot profile set hsprof1 html-directory=hotspot
 
-5. DNS tidak terconfig dengan benar:
-   CEK: /ip dns print
-   SOLUSI:
-   /ip dns set servers=8.8.8.8,8.8.4.4
-   /ip dns set allow-remote-requests=yes
+VIA WINBOX:
+───────────
+1. Buka menu IP → Hotspot → Server Profiles
+2. Double-click profile yang digunakan
+3. Tab "Login", set HTML Directory = hotspot
+4. Klik Apply → OK
 
-6. Firewall NAT rules bermasalah:
-   CEK: /ip firewall nat print
-   PASTIKAN ada rule untuk hotspot:
-   chain=srcnat action=masquerade out-interface=[wan-interface]
 
-------------------------------------------
-TROUBLESHOOTING LAINNYA:
-------------------------------------------
+═══════════════════════════════════════════════════════════════════════════════
+  TROUBLESHOOTING: HALAMAN LOGIN TIDAK MUNCUL / TERSAMBUNG TANPA INTERNET
+═══════════════════════════════════════════════════════════════════════════════
 
-A. CSS atau Gambar tidak muncul:
-   - Pastikan semua file di folder hotspot SAMA
-   - Cek nama file (case sensitive): logo.png bukan Logo.png
-   - Restart hotspot service
+MASALAH 1: Halaman login tidak muncul, langsung internet
+─────────────────────────────────────────────────────────
+✓ Cek Hotspot Profile:
+  /ip hotspot profile print
+  /ip hotspot profile set [nama-profile] html-directory=hotspot
 
-B. Error "invalid username or password":
-   - Cek user list: /ip hotspot user print
-   - Tambah user test: /ip hotspot user add name=admin password=admin
-   - Test login dengan user tersebut
+✓ Pastikan file alogin.html ada di folder hotspot:
+  /file print where name~"hotspot/alogin.html"
 
-C. Redirect tidak jalan setelah login:
-   - Cek hotspot profile HTTP PAP: enabled
-   - Cek HTTP CHAP: enabled
-   - Test dengan disable firewall sementara
+✓ Restart Hotspot service:
+  /ip hotspot remove [hotspot-name]
+  [Setup ulang hotspot atau restore backup]
 
-D. Halaman login muncul tapi tidak bisa submit:
-   - Cek apakah form action benar (gunakan file original)
-   - Pastikan method="post" di form login
 
-COMMAND DIAGNOSIS LENGKAP:
--------------------------
-/ip hotspot print
-/ip hotspot profile print detail
-/ip hotspot user print
-/file print where name~"hotspot"
-/ip dns print
-/ip firewall nat print where chain=srcnat
+MASALAH 2: Muncul parameter $(error), $(username), dll
+───────────────────────────────────────────────────────
+PENYEBAB: File yang diupload adalah login.html, bukan alogin.html!
 
-FITUR:
-------
-- Responsive design (mobile & desktop)
-- Animasi modern dan smooth
-- Support CHAP authentication
-- Auto-redirect setelah login
-- Error handling
-- Info koneksi (IP, MAC, uptime)
-- Tombol logout
+SOLUSI:
+1. Pastikan file bernama "alogin.html" (bukan login.html)
+2. Re-upload file alogin.html yang sudah diperbaiki
+3. Hapus file login.html jika ada di folder hotspot
+4. Clear browser cache (Ctrl+Shift+Delete)
 
-SUPPORT:
---------
-Compatible dengan:
-- MikroTik RB450Gx4
-- RouterOS v6.x dan v7.x
-- Semua model MikroTik dengan Hotspot
 
-VARIABEL MIKROTIK YANG DIGUNAKAN:
---------------------------------
-$(link-login-only)   - URL form login
-$(link-orig)         - URL tujuan awal
-$(username)          - Username user
-$(ip)               - IP address user
-$(mac)              - MAC address user
-$(uptime)           - Waktu koneksi
-$(error)            - Pesan error
-$(chap-id)          - CHAP authentication ID
-$(chap-challenge)   - CHAP challenge string
-$(link-logout)      - URL untuk logout
+MASALAH 3: Tersambung tapi tidak ada internet
+──────────────────────────────────────────────
+✓ Cek NAT Masquerade:
+  /ip firewall nat print
+  /ip firewall nat add chain=srcnat action=masquerade out-interface=[interface-internet]
 
-========================================
-© 2025 ANTIEQ Wisma Kost
-========================================
+✓ Cek DNS Server:
+  /ip dns print
+  /ip dns set servers=8.8.8.8,8.8.4.4 allow-remote-requests=yes
+
+✓ Cek Routing:
+  /ip route print
+  Pastikan ada default route: 0.0.0.0/0 gateway=[gateway-internet]
+
+✓ Cek IP Address di interface:
+  /ip address print
+  Pastikan interface internet punya IP yang benar
+
+
+MASALAH 4: Halaman login muncul tapi tidak bisa login
+──────────────────────────────────────────────────────
+✓ Cek User HotSpot:
+  /ip hotspot user print
+  /ip hotspot user add name=test password=test
+
+✓ Test login dengan user tersebut
+
+✓ Cek log untuk error:
+  /log print where topics~"hotspot"
+
+
+MASALAH 5: Gambar tidak muncul (logo, background)
+──────────────────────────────────────────────────
+✓ Pastikan SEMUA file gambar sudah diupload:
+  /file print where name~"hotspot/"
+  
+  Harus ada:
+  - hotspot/logo.png
+  - hotspot/roket.png
+  - hotspot/login-bg.png
+  - hotspot/status_bg.png
+  - hotspot/success_bg.png
+
+✓ Re-upload file gambar jika ada yang kurang
+
+✓ Clear browser cache
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  TIPS TAMBAHAN UNTUK RB450Gx4
+═══════════════════════════════════════════════════════════════════════════════
+
+✓ Backup konfigurasi sebelum mengubah apapun:
+  /system backup save name=backup-sebelum-custom-login
+
+✓ Jika sudah ada hotspot berjalan, cukup upload file dan ubah html-directory
+
+✓ Untuk performa optimal, gunakan RouterOS versi 7.x
+
+✓ Jika ada masalah, restore backup:
+  /system backup load name=backup-sebelum-custom-login
+
+✓ Clear cache browser jika halaman tidak update:
+  - Chrome: Ctrl+Shift+Delete → Clear browsing data
+  - Pilih "Cached images and files"
+  - Time range: All time
+
+✓ Test dari device berbeda (HP, laptop) untuk memastikan
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  CHECKLIST VERIFIKASI
+═══════════════════════════════════════════════════════════════════════════════
+
+[ ] File alogin.html sudah diupload (BUKAN login.html!)
+[ ] File styles.css sudah diupload
+[ ] Semua file gambar (logo.png, roket.png, dll) sudah diupload
+[ ] HTML directory di profile sudah diset ke "hotspot"
+[ ] Hotspot service sudah running
+[ ] NAT masquerade sudah dikonfigurasi
+[ ] DNS server sudah diset
+[ ] Test login berhasil dengan user yang ada
+[ ] Halaman login muncul dengan benar (tanpa parameter $)
+[ ] Gambar/logo tampil dengan sempurna
+[ ] Clear cache browser sudah dilakukan
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  KONTAK SUPPORT
+═══════════════════════════════════════════════════════════════════════════════
+
+Jika masih ada masalah setelah mengikuti panduan ini:
+1. Screenshot halaman error
+2. Copy hasil command: /ip hotspot profile print
+3. Copy hasil command: /file print where name~"hotspot/"
+4. Hubungi tim support dengan informasi tersebut
+
+
+═══════════════════════════════════════════════════════════════════════════════
+Terima kasih menggunakan ANTIEQ Wisma Kost WiFi System!
+═══════════════════════════════════════════════════════════════════════════════

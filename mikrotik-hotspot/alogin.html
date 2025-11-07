@@ -3,62 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connected - ANTIEQ Wisma Kost WiFi</title>
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+    <title>WiFi Login - ANTIEQ Wisma Kost</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="success-page">
+<body>
     <div class="container">
-        <div class="content success-content">
+        <div class="content">
             <!-- Logo -->
             <div class="logo-container">
                 <img src="logo.png" alt="ANTIEQ Wisma Kost Logo" class="logo">
             </div>
 
-            <!-- Success Message -->
-            <div class="success-section">
-                <div class="success-icon">
-                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                </div>
-                <h1 class="success-title">Connected!</h1>
-                <p class="success-description">You are now connected to WiFi</p>
+            <!-- Title -->
+            <div class="title-section">
+                <h1 class="title">Welcome to</h1>
+                <h2 class="subtitle">ANTIEQ Wisma Kost</h2>
+                <p class="description">Connect to free high-speed WiFi</p>
             </div>
 
-            <!-- Connection Info -->
-            <div class="info-card">
-                <div class="info-item">
-                    <span class="info-label">Username</span>
-                    <span class="info-value">$(username)</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">IP Address</span>
-                    <span class="info-value">$(ip)</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">MAC Address</span>
-                    <span class="info-value">$(mac)</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Session Time</span>
-                    <span class="info-value">$(uptime)</span>
-                </div>
-            </div>
+            <!-- Login Form -->
+            <form name="login" action="$(link-login-only)" method="post" class="login-form">
+                <input type="hidden" name="dst" value="$(link-orig)" />
+                <input type="hidden" name="popup" value="true" />
+                
+$(if chap-id)
+                <input type="hidden" name="chap-id" value="$(chap-id)" />
+                <input type="hidden" name="chap-challenge" value="$(chap-challenge)" />
+$(endif)
 
-            <!-- Logout Button -->
-            <a href="$(link-logout)" class="logout-btn">Logout</a>
+$(if error)
+                <div class="error-message">$(error)</div>
+$(endif)
 
-            <!-- Footer -->
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        name="username" 
+                        value="$(username)"
+                        placeholder="Username"
+                        class="form-input"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <input 
+                        type="password" 
+                        name="password" 
+                        placeholder="Password"
+                        class="form-input"
+                    />
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <span>Connect to WiFi</span>
+                </button>
+
+            </form>
+
             <div class="footer-text">
-                <p>Enjoy your free WiFi!</p>
+                <p>Free WiFi Access</p>
                 <p class="small">Powered by ANTIEQ Wisma Kost</p>
             </div>
 
             <!-- Rocket Image -->
-            <div class="rocket-container rocket-success">
+            <div class="rocket-container">
                 <img src="roket.png" alt="Rocket" class="rocket">
             </div>
         </div>
     </div>
+
+    <script>
+        document.querySelector('input[name="username"]').focus();
+    </script>
 </body>
 </html>
